@@ -1,0 +1,12 @@
+[build]
+  functions = "netlify/functions"
+
+[dev]
+  framework = "expo"
+  targetPort = 19006
+
+# Handle client-side routing for SPA
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "types": [
+      "jest",
+      "@testing-library/jest-native"
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "jsx": "react-native"
+  },
+  "include": [
+    "src/**/*",
+    "__tests__/**/*",
+    "tests/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "src0",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ],
+  "extends": "expo/tsconfig.base"
+}
