@@ -33,9 +33,7 @@
       "bundler": "metro",
       "favicon": "./src/assets/favicon.png"
     },
-    "plugins": [
-      "expo-secure-store"
-    ],
+    "plugins": [],
     "extra": {
       "eas": {
         "projectId": "848cd244-a4c2-4179-bceb-49a6e26e8c97"
