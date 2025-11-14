@@ -1,8 +1,6 @@
 [build]
-  command = "rm -rf .expo node_modules/.cache dist && npm ci && npx expo export -p web"
   publish = "dist"
   functions = "netlify/functions"
-  environment = { NODE_ENV = "production", EXPO_NO_CACHE = "1" }
 
 [dev]
   framework = "expo"
