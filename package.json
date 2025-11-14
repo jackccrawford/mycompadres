@@ -1,9 +1,8 @@
 {
-  "name": "mycompadres",
-  "version": "0.1.0",
-  "description": "MyCompadres - Voice-first AI companion for founders",
+  "name": "mvara-site",
+  "version": "0.4.0",
+  "description": "A modern, well-structured React Native website with RWA mobile web",
   "main": "index.ts",
-  "packageManager": "npm@10.0.0",
   "scripts": {
     "start": "npx expo start --clear",
     "dev": "./scripts/start.sh",
@@ -16,23 +15,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wearecompadres/mycompadres.git"
+    "url": "git+https://github.com/mvllc/mvara-website-rwa.git"
   },
   "keywords": [
-    "ai",
-    "voice",
-    "founders",
-    "pwa",
-    "deepgram",
-    "anthropic",
-    "compadres"
+    "react-native",
+    "expo",
+    "material-design",
+    "typescript",
+    "starter",
+    "template",
+    "mobile",
+    "app"
   ],
-  "author": "Compadres",
+  "author": "Managed Ventures LLC",
   "license": "Proprietary",
   "bugs": {
-    "url": "https://github.com/wearecompadres/mycompadres/issues"
+    "url": "https://github.com/mvllc/mvara-website-rwa/issues"
   },
-  "homepage": "https://wearecompadres.com",
+  "homepage": "https://github.com/mvllc/mvara-website-rwa#readme",
   "dependencies": {
     "@deepgram/sdk": "^4.11.2",
     "@expo/metro-runtime": "~4.0.0",
@@ -47,7 +47,14 @@
     "@react-navigation/native": "^7.0.14",
     "@types/uuid": "^10.0.0",
     "expo": "~52.0.46",
-    "expo-font": "^14.0.9",
+    "expo-av": "~15.0.2",
+    "expo-blur": "~14.0.3",
+    "expo-file-system": "~18.0.12",
+    "expo-haptics": "~14.0.1",
+    "expo-linear-gradient": "^14.0.2",
+    "expo-secure-store": "~14.0.1",
+    "expo-status-bar": "~2.0.0",
+    "expo-system-ui": "~4.0.9",
     "lucide-react-native": "^0.471.0",
     "openai": "^4.28.0",
     "react": "18.3.1",

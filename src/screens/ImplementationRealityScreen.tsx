@@ -1,110 +1,109 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { ScrollView, View, StyleSheet } from 'react-native';
+import { Text, Card, Button } from 'react-native-paper';
 import { useTheme } from '../contexts/ThemeContext';
-import { globalTextStyles } from '../styles/globalStyles';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import LinkedInIcon from '../components/icons/LinkedInIcon';
+import XIcon from '../components/icons/XIcon';
+import { Linking, TouchableOpacity } from 'react-native';
 
 export const ImplementationRealityScreen = () => {
   const { theme } = useTheme();
 
-  const Pillar = ({ number, name, description, subPillars }: any) => (
-    <View style={styles.pillarContainer}>
-      <View style={styles.pillarHeader}>
-        <Text style={[globalTextStyles.h3, { color: theme.colors.text }]}>
-          {number}. {name}
-        </Text>
-      </View>
-      <Text style={[globalTextStyles.body, { color: theme.colors.text, marginBottom: 12, opacity: 0.9 }]}>
-        {description}
-      </Text>
-      {subPillars && subPillars.length > 0 && (
-        <View style={styles.subPillarsContainer}>
-          {subPillars.map((sub: string, idx: number) => (
-            <Text key={idx} style={[globalTextStyles.bodySmall, { color: theme.colors.text, opacity: 0.8, marginBottom: 6 }]}>
-              • {sub}
-            </Text>
-          ))}
-        </View>
-      )}
-    </View>
-  );
-
   return (
-    <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <View style={styles.content}>
-        <Text style={[globalTextStyles.h2, { color: theme.colors.text, marginBottom: 8 }]}>
-          Growth Partnership
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <ScrollView
+        contentContainerStyle={[
+          styles.container,
+          { backgroundColor: theme.colors.background }
+        ]}
+      >
+        <Card style={[styles.card, { backgroundColor: theme.colors.surface }]}>
+          <Card.Content>
+            <Text variant="titleLarge" style={{ color: theme.colors.onSurface, marginBottom: 8 }}>
+              30-Day Implementation Roadmap
+            </Text>
+            <Text variant="bodyMedium" style={{ color: theme.colors.onSurfaceVariant }}>
+              Our implementation approach focuses on quick wins and early results, with minimal resource requirements.
+            </Text>
+          </Card.Content>
+          <Card.Actions>
+            <Button mode="outlined">View Roadmap</Button>
+          </Card.Actions>
+        </Card>
+
+        <Card style={[styles.card, { backgroundColor: theme.colors.surface }]}>
+          <Card.Content>
+            <Text variant="titleLarge" style={{ color: theme.colors.onSurface, marginBottom: 8 }}>
+              Operational Integration
+            </Text>
+            <Text variant="bodyMedium" style={{ color: theme.colors.onSurfaceVariant }}>
+              mVara integrates seamlessly with your existing workflows with minimal disruption. No rip-and-replace required.
+            </Text>
+          </Card.Content>
+        </Card>
+
+        <Card style={[styles.card, { backgroundColor: theme.colors.surface }]}>
+          <Card.Content>
+            <Text variant="titleLarge" style={{ color: theme.colors.onSurface, marginBottom: 8 }}>
+              Team Empowerment
+            </Text>
+            <Text variant="bodyMedium" style={{ color: theme.colors.onSurfaceVariant }}>
+              Your existing teams become more effective with mVara. No specialized AI expertise required.
+            </Text>
+          </Card.Content>
+        </Card>
+
+        <Card style={[styles.card, { backgroundColor: theme.colors.surface }]}>
+          <Card.Content>
+            <Text variant="titleLarge" style={{ color: theme.colors.onSurface, marginBottom: 8 }}>
+              Control & Governance
+            </Text>
+            <Text variant="bodyMedium" style={{ color: theme.colors.onSurfaceVariant }}>
+              Executive dashboards provide visibility and appropriate governance frameworks.
+            </Text>
+          </Card.Content>
+          <Card.Actions>
+            <Button mode="contained">Request Implementation Blueprint</Button>
+          </Card.Actions>
+        </Card>
+      </ScrollView>
+
+      {/* Footer */}
+      <View style={[{ marginTop: 48, marginBottom: 24, paddingHorizontal: 16, alignItems: 'center', backgroundColor: theme.colors.surface }]}>  
+        <View style={{ height: 1, width: '100%', backgroundColor: theme.colors.outline, marginBottom: 24 }} />
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>  
+          <TouchableOpacity
+            accessibilityRole="link"
+            onPress={() => Linking.openURL('https://www.linkedin.com/company/mvara')}
+            style={{ marginHorizontal: 8 }}
+          >
+            <LinkedInIcon size={24} color={theme.colors.primary} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            accessibilityRole="link"
+            onPress={() => Linking.openURL('https://x.com/mvaraai')}
+            style={{ marginHorizontal: 8 }}
+          >
+            <XIcon size={24} color={theme.colors.primary} />
+          </TouchableOpacity>
+        </View>
+        <Text style={{ fontSize: 14, fontWeight: '500', marginBottom: 8, color: theme.colors.onSurfaceVariant, textAlign: 'center' }}>Copyright {'\u00A9'} 2025 Managed Ventures LLC
+          {'\n'}Doing business as mVara. All rights reserved.
         </Text>
-        <Text style={[globalTextStyles.h4, { color: theme.colors.text, marginBottom: 8 }]}>
-          = Optimisation & Growth
-        </Text>
-        <Text style={[globalTextStyles.body, { color: theme.colors.text, marginBottom: 32, opacity: 0.9 }]}>
-          The Compadres Framework: 6 Pillars for Business Growth
-        </Text>
-
-        <Pillar
-          number={1}
-          name="Purpose"
-          description="Why you exist and what drives your business forward."
-          subPillars={['Vision & Mission', 'Core Values']}
-        />
-
-        <Pillar
-          number={2}
-          name="People"
-          description="Your team, culture, and leadership capabilities."
-          subPillars={['Team Structure', 'Culture & Engagement']}
-        />
-
-        <Pillar
-          number={3}
-          name="Process"
-          description="Systems, operations, and how work gets done."
-          subPillars={['Operations', 'Systems & Tools']}
-        />
-
-        <Pillar
-          number={4}
-          name="Performance"
-          description="Financial metrics, KPIs, and business health."
-          subPillars={['Financial Performance', 'Key Metrics']}
-        />
-
-        <Pillar
-          number={5}
-          name="Product"
-          description="Your offerings, innovation, and market fit."
-          subPillars={['Product/Service Quality', 'Innovation & Development']}
-        />
-
-        <Pillar
-          number={6}
-          name="Profit"
-          description="Growth, sustainability, and long-term value creation."
-          subPillars={['Revenue Growth', 'Profitability & Scale']}
-        />
+        <Text style={{ fontSize: 14, marginBottom: 16, color: theme.colors.onSurfaceVariant, textAlign: 'center' }}>Scottsdale, AZ</Text>
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    padding: 16,
+    paddingBottom: 32,
   },
-  content: {
-    padding: 24,
-  },
-  pillarContainer: {
-    marginBottom: 24,
-    paddingBottom: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.2)',
-  },
-  pillarHeader: {
-    marginBottom: 8,
-  },
-  subPillarsContainer: {
-    marginTop: 8,
-    paddingLeft: 12,
+  card: {
+    marginBottom: 16,
+    elevation: 2,
   },
 });

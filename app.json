@@ -1,12 +1,16 @@
 {
   "expo": {
-    "name": "MyCompadres",
-    "slug": "mycompadres",
-    "version": "0.1.0",
+    "name": "Mvara",
+    "slug": "mvara-site",
+    "version": "0.4.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "web": {
+      "output": "server",
+      "bundler": "metro"
+    },
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -30,10 +34,11 @@
       "package": "com.jackccrawford.mobilebase"
     },
     "web": {
-      "bundler": "metro",
-      "favicon": "./src/assets/favicon.png"
+      "favicon": "./assets/favicon.png"
     },
-    "plugins": [],
+    "plugins": [
+      "expo-secure-store"
+    ],
     "extra": {
       "eas": {
         "projectId": "848cd244-a4c2-4179-bceb-49a6e26e8c97"

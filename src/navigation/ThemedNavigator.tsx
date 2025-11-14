@@ -12,9 +12,8 @@ import { WindsurfPartnershipScreen } from '../screens/WindsurfPartnershipScreen'
 import { UnsubscribeScreen } from '../screens/UnsubscribeScreen';
 import InsightsScreen from '../screens/InsightsScreen';
 import { useTheme, ThemeMode } from '../contexts/ThemeContext';
-import { CompadresLogo } from '../components/CompadresLogo';
 import { eventEmitter, EVENTS } from '../utils/eventEmitter';
-import { Home, Settings, Menu, ChevronLeft, Bell, BellDot, Sun, Moon, Monitor, Palette, ArrowLeft, Code, Users, BookOpen, TrendingUp, Briefcase, Book, Rocket, User, LogIn, Mic, Target, Lightbulb, TrendingUpIcon } from 'lucide-react-native';
+import { Home, Settings, Menu, ChevronLeft, Bell, BellDot, Sun, Moon, Monitor, Palette, ArrowLeft, Code, Users, BookOpen, TrendingUp, Briefcase, Book, Rocket } from 'lucide-react-native';
 import { Platform, TouchableOpacity, View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { getAccessibleHeaderColors } from '../utils/colorUtils';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -130,50 +129,6 @@ const HeaderPaletteToggle = () => {
 };
 
 /**
- * HeaderProfileIcon component for login/profile access
- * Shows login icon when not authenticated, profile picture when logged in
- */
-const HeaderProfileIcon = () => {
-  const { theme } = useTheme();
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // TODO: Connect to auth state
-  const [profilePicture, setProfilePicture] = useState<string | null>(null); // TODO: Load from user profile
-  
-  const handlePress = () => {
-    if (isLoggedIn) {
-      // Navigate to profile/settings
-      console.log('Open profile menu');
-    } else {
-      // Open login modal
-      console.log('Open login modal');
-    }
-  };
-  
-  return (
-    <TouchableOpacity
-      onPress={handlePress}
-      style={{ marginRight: 16, padding: 8 }}
-      accessibilityLabel={isLoggedIn ? 'Profile' : 'Login'}
-      accessibilityHint={isLoggedIn ? 'View your profile and settings' : 'Sign in to your account'}
-    >
-      {isLoggedIn && profilePicture ? (
-        <Image
-          source={{ uri: profilePicture }}
-          style={{
-            width: 32,
-            height: 32,
-            borderRadius: 16,
-            borderWidth: 2,
-            borderColor: '#FF571E',
-          }}
-        />
-      ) : (
-        <User size={24} color="#FF571E" />
-      )}
-    </TouchableOpacity>
-  );
-};
-
-/**
  * HeaderThemeToggle component for theme mode switching
  * Toggles between light and dark modes only
  */
@@ -188,15 +143,16 @@ export const HeaderThemeToggle = () => {
   
   // Determine icon and color based on current theme
   const ThemeIcon = theme.dark ? Sun : Moon;
+  const iconColor = theme.dark ? '#FFFFFF' : theme.colors.onSurfaceVariant;
   
   return (
     <TouchableOpacity
-      style={{ marginRight: 8, padding: 8 }}
+      style={{ marginRight: 16, padding: 8 }}
       onPress={toggleTheme}
       accessibilityLabel={`Switch to ${theme.dark ? 'light' : 'dark'} mode`}
       accessibilityHint={`Changes the app theme to ${theme.dark ? 'light' : 'dark'} mode`}
     >
-      <ThemeIcon size={24} color="#FF571E" />
+      <ThemeIcon size={24} color={iconColor} />
     </TouchableOpacity>
   );
 };
@@ -241,13 +197,13 @@ export const SPECIAL = {
   UNSUBSCRIBE: 'Unsubscribe'
 };
 
-// Tab header titles - Compadres framework
+// Tab header titles - content layer
 export const TAB_HEADERS = {
-  [TAB[0]]: 'Voice',
-  [TAB[1]]: 'Entrepreneur',
-  [TAB[2]]: 'Advisory',
-  [TAB[3]]: 'Growth',
-  [TAB[4]]: 'Settings',
+  [TAB[0]]: 'mVara',
+  [TAB[1]]: 'Wins',
+  [TAB[2]]: 'Edge',
+  [TAB[3]]: 'Blueprint',
+  [TAB[4]]: 'Insights',
   [SPECIAL.EASTER_EGG]: 'Enterprise Value Simulator',
   [SPECIAL.UNSUBSCRIBE]: 'Unsubscribe',
   'WindsurfPartnership': 'Windsurf Partnership'
@@ -325,7 +281,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
         const Icon = options.tabBarIcon ? 
           options.tabBarIcon({ 
             focused: isFocused, 
-            color: isFocused ? '#FF571E' : (theme.dark ? '#999999' : '#666666'), 
+            color: isFocused ? theme.colors.primary : theme.colors.onSurfaceVariant, 
             size: 24 
           }) : 
           null;
@@ -342,15 +298,11 @@ const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
               alignItems: 'center',
               justifyContent: 'center',
               paddingVertical: 4,
-              borderTopWidth: 3,
-              borderTopColor: isFocused ? '#FF571E' : 'transparent',
-              // @ts-ignore - web only
-              outlineStyle: 'none',
             }}
           >
             {Icon}
             <Text style={{
-              color: isFocused ? '#FF571E' : (theme.dark ? '#999999' : '#666666'),
+              color: isFocused ? theme.colors.primary : theme.colors.onSurfaceVariant,
               fontSize: 12,
               marginTop: 4,
               fontWeight: isFocused ? '600' : '400',
@@ -373,9 +325,10 @@ const TabNavigator = () => {
   // Use proper typing for navigation to avoid type errors
   const navigation = useNavigation<any>();
   
-  // Header follows theme: white in light mode, black in dark mode
+  // Directly set header colors for maximum reliability
+  // This ensures the header styling works correctly in both light and dark modes
   const headerBackgroundColor = theme.dark ? '#000000' : '#FFFFFF';
-  const headerTextColor = theme.dark ? '#FFFFFF' : '#000000';
+  const headerTextColor = theme.dark ? '#FFFFFF' : '#49454F'; // Using a specific gray color for light mode
   
   // Memoize header colors to prevent unnecessary re-renders
   const headerColors = useMemo(() => {
@@ -469,14 +422,29 @@ const TabNavigator = () => {
       setLastTap(now);
     };
     
+    // Use the appropriate logo based on theme mode
+    // For light mode, use the white background logo
+    // For dark mode, use the black logo
+    const logoSource = theme.dark 
+      ? require('../assets/mvara-logo-black.png')
+      : require('../assets/mvara-logo-white.png');
+    
     return (
       <TouchableOpacity 
         onPress={handleLogoPress}
         style={{ paddingHorizontal: 12, paddingVertical: 12 }}
-        accessibilityLabel="MyCompadres logo"
+        accessibilityLabel="mVara logo"
         accessibilityHint="Double tap to access special features"
       >
-        <CompadresLogo width={120} height={40} />
+        <Image
+          source={logoSource}
+          style={{
+            height: 50,
+            width: 100,
+            resizeMode: 'contain',
+            tintColor: undefined // No tint in any mode
+          }}
+        />
       </TouchableOpacity>
     );
   };
@@ -487,7 +455,7 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName={TAB_NAMES.HOME}
-      tabBar={(props) => <CustomTabBar {...props} />} // Enable bottom tab bar
+      tabBar={() => null} // Hides the bottom tab bar
       screenOptions={{
         headerStyle: {
           backgroundColor: headerBackgroundColor,
@@ -500,12 +468,7 @@ const TabNavigator = () => {
         },
         headerTintColor: headerTextColor,
         headerTitle: renderTitle,
-        headerRight: () => (
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <HeaderThemeToggle />
-            <HeaderProfileIcon />
-          </View>
-        ),
+        headerRight: () => <HeaderThemeToggle />,
       }}
     >
       <Tab.Screen
@@ -513,9 +476,8 @@ const TabNavigator = () => {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Mic size={size} color={color} />
+            <Home size={size} color={color} />
           ),
-          tabBarLabel: 'Voice',
         }}
       />
       <Tab.Screen
@@ -523,9 +485,9 @@ const TabNavigator = () => {
         component={StrategicImpactScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Target size={size} color={color} />
+            <TrendingUp size={size} color={color} />
           ),
-          tabBarLabel: 'Entrepreneur',
+          tabBarLabel: 'Wins',
         }}
       />
       <Tab.Screen
@@ -533,9 +495,9 @@ const TabNavigator = () => {
         component={CompetitiveEdgeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Lightbulb size={size} color={color} />
+            <Rocket size={size} color={color} />
           ),
-          tabBarLabel: 'Advisory',
+          tabBarLabel: 'Edge',
         }}
       />
       <Tab.Screen
@@ -543,9 +505,9 @@ const TabNavigator = () => {
         component={ImplementationRealityScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <TrendingUp size={size} color={color} />
+            <Code size={size} color={color} />
           ),
-          tabBarLabel: 'Growth',
+          tabBarLabel: 'Blueprint',
         }}
       />
       <Tab.Screen
@@ -553,9 +515,9 @@ const TabNavigator = () => {
         component={InsightsScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Settings size={size} color={color} />
+            <Rocket size={size} color={color} />
           ),
-          tabBarLabel: 'Settings',
+          tabBarLabel: 'Insights',
         }}
       />
       <Tab.Screen

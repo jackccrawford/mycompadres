@@ -1,21 +1,19 @@
 import * as Font from 'expo-font';
 
 export const FONT_NAMES = {
-  OUTFIT_REGULAR: 'Outfit-Regular',
-  OUTFIT_MEDIUM: 'Outfit-Medium',
-  OUTFIT_SEMIBOLD: 'Outfit-SemiBold',
-  OUTFIT_BOLD: 'Outfit-Bold',
+  MONTSERRAT_REGULAR: 'Montserrat-Regular',
+  MONTSERRAT_MEDIUM: 'Montserrat-Medium',
+  MONTSERRAT_BOLD: 'Montserrat-Bold',
 };
 
-// Font loading function - Compadres brand font
+// Font loading function 
 export const loadFonts = async () => {
   try {
     await Font.loadAsync({
       // Load from local assets
-      [FONT_NAMES.OUTFIT_REGULAR]: require('../../assets/fonts/Outfit_400Regular.ttf'),
-      [FONT_NAMES.OUTFIT_MEDIUM]: require('../../assets/fonts/Outfit_500Medium.ttf'),
-      [FONT_NAMES.OUTFIT_SEMIBOLD]: require('../../assets/fonts/Outfit_600SemiBold.ttf'),
-      [FONT_NAMES.OUTFIT_BOLD]: require('../../assets/fonts/Outfit_700Bold.ttf'),
+      [FONT_NAMES.MONTSERRAT_REGULAR]: require('../../assets/fonts/Montserrat-Regular.ttf'),
+      [FONT_NAMES.MONTSERRAT_MEDIUM]: require('../../assets/fonts/Montserrat-Medium.ttf'),
+      [FONT_NAMES.MONTSERRAT_BOLD]: require('../../assets/fonts/Montserrat-Bold.ttf'),
     });
     return true;
   } catch (error) {
@@ -24,19 +22,17 @@ export const loadFonts = async () => {
   }
 };
 
-// Typography scale - Compadres brand (matching wearecompadres.com)
+// Typography scale
 export const typography = {
   fontFamily: {
-    regular: FONT_NAMES.OUTFIT_REGULAR,
-    medium: FONT_NAMES.OUTFIT_MEDIUM,
-    semibold: FONT_NAMES.OUTFIT_SEMIBOLD,
-    bold: FONT_NAMES.OUTFIT_BOLD,
+    regular: FONT_NAMES.MONTSERRAT_REGULAR,
+    medium: FONT_NAMES.MONTSERRAT_MEDIUM,
+    bold: FONT_NAMES.MONTSERRAT_BOLD,
   },
   fontSize: {
     xs: 12,
     sm: 14,
     md: 16,
-    base: 17, // Compadres website default
     lg: 18,
     xl: 20,
     xxl: 24,
@@ -46,16 +42,9 @@ export const typography = {
     xs: 16,
     sm: 20,
     md: 24,
-    base: 26, // Compadres website default
     lg: 28,
     xl: 32,
     xxl: 36,
     xxxl: 40,
-  },
-  fontWeight: {
-    regular: '400',
-    medium: '500',
-    semibold: '600',
-    bold: '700',
   },
 };

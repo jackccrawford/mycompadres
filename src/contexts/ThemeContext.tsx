@@ -2,8 +2,8 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useColorScheme } from 'react-native';
 
-export type ThemeMode = 'light' | 'dark';
-export type PaletteType = 'compadres' | 'default' | 'ocean' | 'forest' | 'amber' | 'rose' | 'monochrome';
+export type ThemeMode = 'light' | 'dark' | 'system';
+export type PaletteType = 'default' | 'ocean' | 'forest' | 'amber' | 'rose' | 'monochrome';
 
 export interface Theme {
   colors: {
@@ -39,40 +39,6 @@ export interface Theme {
 
 // Define color palettes for both light and dark modes
 const palettes = {
-  compadres: {
-    light: {
-      primary: '#FF571E', // Compadres orange
-      secondary: '#FF8956',
-      background: '#FF571E', // Orange content areas
-      text: '#FFFFFF', // White text on orange
-      border: '#FF8956',
-      success: '#4CAF50',
-      error: '#F44336',
-      info: '#FF8956',
-      surface: '#FF571E',
-      onSurface: '#FFFFFF',
-      primaryContainer: '#FF8956',
-      onPrimaryContainer: '#FFFFFF',
-      outline: '#FF8956',
-      onSurfaceVariant: '#FFFFFF',
-    },
-    dark: {
-      primary: '#FF571E', // Compadres orange
-      secondary: '#FF8956',
-      background: '#FF571E', // Orange content areas
-      text: '#FFFFFF', // White text on orange
-      border: '#FF8956',
-      success: '#4CAF50',
-      error: '#F44336',
-      info: '#FF8956',
-      surface: '#FF571E',
-      onSurface: '#FFFFFF',
-      primaryContainer: '#FF8956',
-      onPrimaryContainer: '#FFFFFF',
-      outline: '#FF8956',
-      onSurfaceVariant: '#FFFFFF',
-    }
-  },
   default: {
     light: {
       primary: '#4B9CD3', // mVara brand color
@@ -280,7 +246,7 @@ const palettes = {
 };
 
 const defaultTheme: Theme = {
-  colors: palettes.compadres.dark,
+  colors: palettes.default.dark,
   spacing: {
     xs: 4,
     sm: 8,
@@ -290,8 +256,8 @@ const defaultTheme: Theme = {
   },
   dark: true,
   themeMode: 'dark',
-  headerTitle: 'MyCompadres',
-  paletteType: 'compadres',
+  headerTitle: 'mVara',
+  paletteType: 'default',
   // No legacy modes
 };
 
@@ -309,7 +275,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>(defaultTheme);
-  // No system mode - removed useColorScheme
+  const colorScheme = useColorScheme();
 
   useEffect(() => {
     const loadTheme = async () => {
@@ -334,11 +300,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     loadTheme();
   }, []);
 
-  const getThemeColors = (mode: ThemeMode, paletteType: PaletteType | undefined) => {
-    const isDark = mode === 'dark';
+  const getThemeColors = (mode: ThemeMode, systemIsDark: boolean, paletteType: PaletteType | undefined) => {
+    const isDark = mode === 'system' ? systemIsDark : mode === 'dark';
 
     // Handle undefined palette type
-    let actualPaletteType = paletteType || 'compadres';
+    let actualPaletteType = paletteType || 'default';
 
     // No legacy modes
 
@@ -356,15 +322,16 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   useEffect(() => {
-    const isDark = theme.themeMode === 'dark';
+    const systemIsDark = colorScheme === 'dark';
+    const isDark = theme.themeMode === 'system' ? systemIsDark : theme.themeMode === 'dark';
 
     const newTheme = {
       ...theme,
       dark: isDark,
-      colors: getThemeColors(theme.themeMode, theme.paletteType)
+      colors: getThemeColors(theme.themeMode, systemIsDark, theme.paletteType)
     };
     setThemeState(newTheme);
-  }, [theme.themeMode, theme.paletteType]);
+  }, [theme.themeMode, colorScheme, theme.paletteType]);
 
   const setTheme = async (newTheme: Theme) => {
     try {
