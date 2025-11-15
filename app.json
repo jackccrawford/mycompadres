@@ -1,16 +1,12 @@
 {
   "expo": {
-    "name": "Mvara",
-    "slug": "mvara-site",
+    "name": "My Compadres",
+    "slug": "compadres",
     "version": "0.4.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "web": {
-      "output": "server",
-      "bundler": "metro"
-    },
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -34,6 +30,8 @@
       "package": "com.jackccrawford.mobilebase"
     },
     "web": {
+      "output": "server",
+      "bundler": "metro",
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
