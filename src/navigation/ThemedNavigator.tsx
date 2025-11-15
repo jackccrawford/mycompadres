@@ -458,7 +458,7 @@ const TabNavigator = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={TAB_NAMES.HOME}
+      initialRouteName={TAB_NAMES.STRATEGIC_IMPACT}
       tabBar={(props) => <CustomTabBar {...props} />}
       screenOptions={{
         headerStyle: {
