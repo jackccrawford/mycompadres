@@ -90,7 +90,10 @@ export const HomeScreen = () => {
       setConnectionStatus('connecting');
 
       // Get token from Netlify function
-      const response = await fetch('/.netlify/functions/deepgram-token');
+      const response = await fetch('/.netlify/functions/deepgram-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
       if (!response.ok) throw new Error('Failed to get token');
       
       const { token } = await response.json();
