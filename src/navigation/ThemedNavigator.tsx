@@ -489,6 +489,7 @@ const TabNavigator = () => {
           tabBarIcon: ({ color, size }) => (
             <Home size={size} color={color} />
           ),
+          tabBarLabel: 'Voice',
         }}
       />
       <Tab.Screen
@@ -496,9 +497,9 @@ const TabNavigator = () => {
         component={StrategicImpactScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <TrendingUp size={size} color={color} />
+            <Briefcase size={size} color={color} />
           ),
-          tabBarLabel: 'Wins',
+          tabBarLabel: 'Entrepreneur',
         }}
       />
       <Tab.Screen
@@ -506,9 +507,9 @@ const TabNavigator = () => {
         component={CompetitiveEdgeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Rocket size={size} color={color} />
+            <Users size={size} color={color} />
           ),
-          tabBarLabel: 'Edge',
+          tabBarLabel: 'Advisory',
         }}
       />
       <Tab.Screen
@@ -516,9 +517,9 @@ const TabNavigator = () => {
         component={ImplementationRealityScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Code size={size} color={color} />
+            <TrendingUp size={size} color={color} />
           ),
-          tabBarLabel: 'Blueprint',
+          tabBarLabel: 'Growth',
         }}
       />
       <Tab.Screen
@@ -526,9 +527,9 @@ const TabNavigator = () => {
         component={InsightsScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Rocket size={size} color={color} />
+            <Settings size={size} color={color} />
           ),
-          tabBarLabel: 'Insights',
+          tabBarLabel: 'Settings',
         }}
       />
       <Tab.Screen
