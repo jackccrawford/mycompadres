@@ -99,7 +99,7 @@ export const HomeScreen = () => {
       const { token } = await response.json();
 
       // Connect to Deepgram Agent API
-      const ws = new WebSocket('wss://agent.deepgram.com/agent', [
+      const ws = new WebSocket('wss://agent.deepgram.com/v1/agent/converse', [
         'token',
         token
       ]);
