@@ -281,7 +281,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
         const Icon = options.tabBarIcon ? 
           options.tabBarIcon({ 
             focused: isFocused, 
-            color: isFocused ? theme.colors.primary : theme.colors.onSurfaceVariant, 
+            color: isFocused ? '#FF571E' : (theme.dark ? '#999999' : '#666666'), 
             size: 24 
           }) : 
           null;
@@ -298,11 +298,15 @@ const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
               alignItems: 'center',
               justifyContent: 'center',
               paddingVertical: 4,
+              borderTopWidth: 3,
+              borderTopColor: isFocused ? '#FF571E' : 'transparent',
+              // @ts-ignore - web only
+              outlineStyle: 'none',
             }}
           >
             {Icon}
             <Text style={{
-              color: isFocused ? theme.colors.primary : theme.colors.onSurfaceVariant,
+              color: isFocused ? '#FF571E' : (theme.dark ? '#999999' : '#666666'),
               fontSize: 12,
               marginTop: 4,
               fontWeight: isFocused ? '600' : '400',
@@ -424,10 +428,10 @@ const TabNavigator = () => {
     
     // Use the appropriate logo based on theme mode
     // For light mode, use the white background logo
-    // For dark mode, use the black logo
+    // For dark mode, use the orange logo
     const logoSource = theme.dark 
-      ? require('../assets/mvara-logo-black.png')
-      : require('../assets/mvara-logo-white.png');
+      ? require('../assets/compadres-logo-orange.png')
+      : require('../assets/compadres-logo-orange.png');
     
     return (
       <TouchableOpacity 
@@ -455,7 +459,7 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName={TAB_NAMES.HOME}
-      tabBar={() => null} // Hides the bottom tab bar
+      tabBar={(props) => <CustomTabBar {...props} />}
       screenOptions={{
         headerStyle: {
           backgroundColor: headerBackgroundColor,
@@ -469,6 +473,13 @@ const TabNavigator = () => {
         headerTintColor: headerTextColor,
         headerTitle: renderTitle,
         headerRight: () => <HeaderThemeToggle />,
+        tabBarStyle: {
+          backgroundColor: theme.colors.surface,
+          borderTopWidth: 1,
+          borderTopColor: theme.colors.outline,
+        },
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.onSurfaceVariant,
       }}
     >
       <Tab.Screen
