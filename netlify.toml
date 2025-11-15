@@ -1,6 +1,6 @@
 [build]
-  command = "npx expo export:web"
-  publish = "web-build"
+  command = "EXPO_NO_EXPORT_EMBEDDED_ASSETS=1 npx expo export -p web --no-bytecode --clear"
+  publish = "dist"
   functions = "netlify/functions"
 
 [dev]

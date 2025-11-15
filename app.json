@@ -30,7 +30,7 @@
       "package": "com.jackccrawford.mobilebase"
     },
     "web": {
-      "bundler": "webpack",
+      "bundler": "metro",
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
