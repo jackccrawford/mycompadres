@@ -1,4 +1,6 @@
 [build]
+  command = "NODE_ENV=production npx expo export:web"
+  publish = "web-build"
   functions = "netlify/functions"
 
 [dev]
